@@ -1,15 +1,27 @@
 class UsersController < ApplicationController
-    #skip authorizing when creating new user 
-    skip_before_action :authorize, only: :create
-    skip_before_action :verify_authenticity_token, only: :create
+
+    before_action :authorized, only: [:show]
+
     def create 
-        user = User.create!(user_params)
-        session[:user_id] = user.id 
-        render json: user, status: :created 
+        @user = User.create!(user_params)
+        token = encode_token({user_id: @user.id})
+        render json: {user: @user, token: token}
     end 
 
+
+    def login 
+        @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params[:password])
+            token = encode_token({user_id: @user.id})
+            render json: {user: @user, token: token}
+        end 
+    end 
+
+    def logout
+        @user = nil
+    end
+
     def show 
-        #current user gets set in application record as global
         render json: @current_user 
     end 
 
