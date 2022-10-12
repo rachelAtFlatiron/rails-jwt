@@ -16,33 +16,9 @@ function App() {
   let [signupData, setSignupData] = useState({...signupBody})
   let [user, setUser] = useState({ username: '' })
 
-  //USEEFFECT FOR AUTO LOGIN
-  useEffect(() => {
-    let token = localStorage.getItem('jwt')
-    if(token && !user.name){
-      fetch('http://localhost:3000/me', {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        setUser(data)
-      })
-    }
-  }, [])
+ /*****TODO: auto login******/
 
-  //logout
-  function logout() {
-    //reset current_user on backend
-    fetch('http://localhost:3000/logout', {
-      method: 'POST'
-    })
-    .catch(err => console.log(err))
-    //remove login info from session
-    localStorage.removeItem("jwt")
-    setUser({ username: '' })
-  }
+ /*****TODO: logout user******/
 
   /*************FORM CHANGE AND SUBMIT************/
 
@@ -54,28 +30,7 @@ function App() {
     })
   }
 
-  //user submits login info
-  const loginSubmit = (e) => {
-    console.log(loginData)
-    e.preventDefault()
-    fetch('http://localhost:3000/login', {
-      method: 'POST',
-      body: JSON.stringify(loginData),
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      //SET JWT AND USER ON SUCCESSFUL LOGIN
-      console.log(data)
-      if(data.token){
-        localStorage.setItem("jwt", data.token)
-        setUser(data.user)
-        setLoginData(loginBody)
-      }
-    })
-  }
+  /*****TODO: login******/
 
   //user enters sign up info
   const signUpChange = (e) => {
@@ -85,25 +40,7 @@ function App() {
     })
   }
 
-  //user submits signup info
-  const signUpSubmit = (e) => {
-    e.preventDefault()
-    fetch('http://localhost:3000/signup', {
-      method: 'POST',
-      body: JSON.stringify(signupData),
-      headers: {
-        'content-type': 'application/json'
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      //SET JWT AND USER ON SUCCESSFUL LOGIN
-      localStorage.setItem("jwt", data.token)
-      setUser(data.user)
-      setSignupData({...signupBody})
-    })
-    .catch(err => console.log(err))
-  }
+  /*****TODO: sign up new user******/
 
   //RENDER 
   return (
