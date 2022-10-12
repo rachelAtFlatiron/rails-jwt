@@ -16,7 +16,7 @@
     2. rescue deny acces, record errors, not found errors 
     3. before all actions make sure to authorize
     4. skip verify_authenticity_token for csrf stuff
-    5. make helper methods: encode_token)
+    5. make helper methods: encode_token
 5. in routes:
     1. create get for check if already logged in
     2. create post for new user
@@ -27,3 +27,10 @@
     2. when component first mounts fetch for auto login authorization: check if localstorage contains jwt token, if so send to backend, on success set current user
     3. on login submit: post logindata to api, on success set localstorage 'jwt' to received token, setuser to current user
     4. on logout: fetch post backend to clear anything, clear localstorage at 'jwt', clear current user state
+
+
+CSRF: made for classical web apps, makes sure requests coming from same server...use
+protect_from_forgery with: :null_session
+to override
+
+JWT: use JWT.encode and JWT.decode

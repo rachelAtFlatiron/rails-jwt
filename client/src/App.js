@@ -17,9 +17,26 @@ function App() {
   let [user, setUser] = useState({ username: '' })
 
  /*****TODO: auto login******/
-
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    if(token && !user.username){
+      fetch('http://localhost:3000/me', {
+        method: 'POST',
+        body: JSON.stringify({token: token}),
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
+    }
+  }, [])
  /*****TODO: logout user******/
+  const logout = () => {
 
+  }
   /*************FORM CHANGE AND SUBMIT************/
 
   //user enters login info
@@ -31,6 +48,9 @@ function App() {
   }
 
   /*****TODO: login******/
+  const loginSubmit = (e) => {
+    e.preventDefault()
+  }
 
   //user enters sign up info
   const signUpChange = (e) => {
@@ -41,6 +61,22 @@ function App() {
   }
 
   /*****TODO: sign up new user******/
+  const signUpSubmit = (e) => {
+    e.preventDefault()
+    fetch('http://localhost:3000/signup', {
+      method: 'POST',
+      body: JSON.stringify(signupData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      setUser(data.user)
+      localStorage.setItem('token', data.token)
+    })
+    .catch(err => console.log(err))
+  }
 
   //RENDER 
   return (
