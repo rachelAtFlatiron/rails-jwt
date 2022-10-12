@@ -2,7 +2,7 @@ class UsersController < ApplicationController
     before_action :authorized, only: [:show]
     def create
         user = User.create!(user_params)
-        token = JWT.encode(user.id, 'secret')
+        token = JWT.encode(user.id, 'secret', algorithm: 'RS256')
         render json: {user: user, token: token}
     end 
 

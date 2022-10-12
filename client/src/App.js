@@ -21,10 +21,8 @@ function App() {
     let token = localStorage.getItem('token')
     if(token && !user.username){
       fetch('http://localhost:3000/me', {
-        method: 'POST',
-        body: JSON.stringify({token: token}),
         headers: {
-          'content-type': 'application/json'
+          'Authorization': `Bearer ${token}`
         }
       })
       .then(res => res.json())
