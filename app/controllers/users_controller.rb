@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     end 
 
     def logout
-        @user = nil
+        @current_user = nil
     end
 
     def show 

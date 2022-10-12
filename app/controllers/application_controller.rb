@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
     #try to log in user, returns true if successful
     def logged_in?
-        !!logged_in_user 
+        !!logged_in_user #!! converts value to boolean
     end 
 
     #throws error if not logged in
