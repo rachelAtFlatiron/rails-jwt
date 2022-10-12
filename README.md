@@ -34,3 +34,5 @@ protect_from_forgery with: :null_session
 to override
 
 JWT: use JWT.encode and JWT.decode
+
+request.headers
