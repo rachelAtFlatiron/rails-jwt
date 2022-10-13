@@ -7,7 +7,12 @@ class UsersController < ApplicationController
     end 
 
     def show
-        
+        render json: {user: @current_user}
+    end 
+
+    def login 
+        token = JWT.encode({user_id: @current_user.id}, nil, 'none')
+        render json: {user: @current_user, token: token}
     end 
 
     private 

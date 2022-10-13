@@ -7,13 +7,19 @@ class ApplicationController < ActionController::Base
     end 
     
     def authorized
+        #if auth header exists
         if(auth_header)
+            #get token value
             token = auth_header.split(' ')[1]
             id = JWT.decode(token, nil, false)
 
+
             puts "token #{id[0]['user_id']}"
+
+            #find user by decoded token
             @user = User.find_by(id: id[0]['user_id'])
-            render json: {user: @user, token: token}
+            #return
+            @current_user = @user
         end 
     end 
 end

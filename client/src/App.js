@@ -50,6 +50,18 @@ function App() {
   /*****TODO: login******/
   const loginSubmit = (e) => {
     e.preventDefault()
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      //set user
+      //set token
+      console.log(data)
+    })
   }
 
   //user enters sign up info
