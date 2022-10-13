@@ -60,5 +60,27 @@ user.authenticate - built in method from rails that checks given password agains
 
 
 ## Login
-1. fetch /login and pass in username, password
-2. 
+1. fetch post /login and pass in username, password
+2. check if username exists
+3. use has_secure_password's authenticate to check password against password_digets
+4. if all is good encode new token based off user_id
+5. render json for user and token
+
+## Logout
+1. fetch post /logout
+2. clear current user
+3. clear token 
+
+## Signup
+1. fetch post /signup with credentials
+2. create new user 
+3. encode token based of user id 
+4. render json user and token 
+
+## Auto login
+1. fetch post /me on component load with token 
+2. check if auth header exists
+3. decode token if exists to get user id 
+4. find user by user id and set to current user
+5. render json: user
+
