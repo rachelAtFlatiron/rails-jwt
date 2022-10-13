@@ -5,11 +5,15 @@ class ApplicationController < ActionController::Base
     def auth_header 
         request.headers['Authorization']
     end 
+    
     def authorized
         if(auth_header)
             token = auth_header.split(' ')[1]
-            JWT.decode(token, 'secret', true, algorithm: 'SHA256')
-            #puts "user is #{user_id}"
+            id = JWT.decode(token, nil, false)
+
+            puts "token #{id[0]['user_id']}"
+            @user = User.find_by(id: id[0]['user_id'])
+            render json: {user: @user, token: token}
         end 
     end 
 end

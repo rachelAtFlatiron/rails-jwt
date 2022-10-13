@@ -28,11 +28,12 @@
     3. on login submit: post logindata to api, on success set localstorage 'jwt' to received token, setuser to current user
     4. on logout: fetch post backend to clear anything, clear localstorage at 'jwt', clear current user state
 
+has_secure_password: in model, creates password_digest from password param
 
 CSRF: made for classical web apps, makes sure requests coming from same server...use
 protect_from_forgery with: :null_session
 to override
 
-JWT: use JWT.encode and JWT.decode
+JWT: use token = encode_token({user_id: @user.id}) and JWT.decode(token, 'secret', true, algorithm: 'HS256')
 
 request.headers

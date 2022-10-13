@@ -28,6 +28,8 @@ function App() {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        setUser(data.user)
+        localStorage.setItem('token', data.token)
       })
     }
   }, [])
