@@ -18,8 +18,6 @@ class ApplicationController < ActionController::Base
 
             #find user by decoded token
             @user = User.find_by(id: id[0]['user_id'])
-            #return
-            @current_user = @user
         end 
     end 
 end

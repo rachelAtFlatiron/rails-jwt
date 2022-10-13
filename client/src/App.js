@@ -54,13 +54,15 @@ function App() {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
-      }
+      },
+      body: JSON.stringify(loginData)
     })
     .then(res => res.json())
     .then(data => {
       //set user
       //set token
-      console.log(data)
+      setUser(data.user)
+      localStorage.setItem('token', data.token)
     })
   }
 

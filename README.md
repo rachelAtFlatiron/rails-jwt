@@ -28,6 +28,23 @@
     3. on login submit: post logindata to api, on success set localstorage 'jwt' to received token, setuser to current user
     4. on logout: fetch post backend to clear anything, clear localstorage at 'jwt', clear current user state
 
+ def logged_in_user
+    if decoded_token 
+        user_id = decoded_token[0]['user_id']
+        @current_user = User.find_by(id: user_id)
+    end 
+end
+
+def login 
+        @user = User.find_by(username: params[:username])
+        if @user && @user.authenticate(params[:password])
+            token = encode_token({user_id: @user.id})
+            render json: {user: @user, token: token}
+        end 
+    end 
+
+
+
 has_secure_password: in model, creates password_digest from password param
 
 CSRF: made for classical web apps, makes sure requests coming from same server...use
@@ -39,3 +56,9 @@ JWT: use token = encode_token({user_id: @user.id}) and JWT.decode(token, 'secret
 request.headers
 
 user.authenticate - built in method from rails that checks given password against password_digest
+
+
+
+## Login
+1. fetch /login and pass in username, password
+2. 

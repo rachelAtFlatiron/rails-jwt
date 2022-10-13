@@ -11,8 +11,12 @@ class UsersController < ApplicationController
     end 
 
     def login 
-        token = JWT.encode({user_id: @current_user.id}, nil, 'none')
-        render json: {user: @current_user, token: token}
+        @user = User.find_by(username: params[:username])
+        if @user && @user&.authenticate(params[:password])
+            
+            token = JWT.encode({user_id: @user.id}, nil, 'none')
+            render json: {user: @user, token: token}
+        end 
     end 
 
     private 
