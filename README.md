@@ -37,3 +37,5 @@ to override
 JWT: use token = encode_token({user_id: @user.id}) and JWT.decode(token, 'secret', true, algorithm: 'HS256')
 
 request.headers
+
+user.authenticate - built in method from rails that checks given password against password_digest
